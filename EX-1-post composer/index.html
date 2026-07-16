@@ -84,12 +84,11 @@
 </div>
 
 <script>
-  // Character limits for each platform.
-  // This is the ONLY place you need to edit to add/change a platform.
-  const LIMITS = {
+
+const LIMITS = {
     twitter: 280,
-    instagram: 800,
-    linkedin: 1000
+    instagram: 2200,
+    linkedin: 3000
   };
 
   const platformSelect = document.getElementById("platform");
@@ -97,18 +96,13 @@
   const counter = document.getElementById("counter");
   const submitBtn = document.getElementById("submitBtn");
 
-  // Applies the current platform's limit to the textarea itself.
-  // Using the "maxlength" attribute makes the browser physically
-  // refuse to accept more characters -- typing, pasting, or
-  // autocomplete all get stopped once the limit is hit.
+
   function applyLimit() {
     const platform = platformSelect.value;
     const limit = LIMITS[platform];
     textArea.setAttribute("maxlength", limit);
 
-    // If the existing text is longer than the new platform's limit
-    // (e.g. user wrote 1000 chars for LinkedIn, then switches to
-    // Twitter), trim it down so it's never left in an invalid state.
+
     if (textArea.value.length > limit) {
       textArea.value = textArea.value.slice(0, limit);
     }
