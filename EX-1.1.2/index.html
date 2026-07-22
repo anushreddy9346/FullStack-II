@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Composer with Drafts</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="box">
+    <h2>Post Composer</h2>
+
+    <label for="platform">Choose platform (select only one):</label>
+    <select id="platform">
+      <option value="twitter">Twitter / X (280 chars)</option>
+      <option value="instagram">Instagram (2200 chars)</option>
+      <option value="linkedin">LinkedIn (3000 chars)</option>
+    </select>
+
+    <textarea id="postText" placeholder="Write your post..."></textarea>
+
+    <div id="counter" class="counter ok">0 / 280 characters</div>
+
+    <div class="btn-row">
+      <button id="saveDraftBtn">Save Draft</button>
+      <button id="submitBtn" disabled>Post</button>
+    </div>
+
+    <div id="saveStatus" class="save-status"></div>
+
+    <hr>
+
+    <h3>Saved Drafts</h3>
+    <div id="draftList" class="draft-list">
+      <p class="empty-hint" id="emptyHint">No drafts saved yet.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
