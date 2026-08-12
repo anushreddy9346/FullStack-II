@@ -5,8 +5,7 @@ import LoginForm from './components/LoginForm';
 import Dashboard from './components/Dashboard';
 import JwtInspector from './components/JwtInspector';
 import ApiLogger from './components/ApiLogger';
-import SecurityGuide from './components/SecurityGuide';
-import { LayoutDashboard, FileCode, Activity, BookOpen, KeyRound } from 'lucide-react';
+import { LayoutDashboard, FileCode, Activity } from 'lucide-react';
 
 function MainApp() {
   const { token } = useAuth();
@@ -41,14 +40,6 @@ function MainApp() {
           <Activity size={18} />
           <span>Network & Header Log</span>
         </button>
-
-        <button
-          className={`tab-btn ${activeTab === 'theory' ? 'active' : ''}`}
-          onClick={() => setActiveTab('theory')}
-        >
-          <BookOpen size={18} />
-          <span>Security Theory & COs</span>
-        </button>
       </div>
 
       {/* Tab Contents */}
@@ -59,8 +50,6 @@ function MainApp() {
       {activeTab === 'inspector' && <JwtInspector />}
 
       {activeTab === 'network' && <ApiLogger />}
-
-      {activeTab === 'theory' && <SecurityGuide />}
     </div>
   );
 }
