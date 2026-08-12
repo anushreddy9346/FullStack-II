@@ -15,7 +15,7 @@ app.use(express.json());
 const USERS = [
   {
     id: 'usr_001',
-    name: 'Alice Johnson (Admin)',
+    name: 'Alice Johnson',
     email: 'admin@example.com',
     password: 'password123',
     role: 'admin',
@@ -23,7 +23,7 @@ const USERS = [
   },
   {
     id: 'usr_002',
-    name: 'Bob Smith (Developer)',
+    name: 'Bob Smith',
     email: 'user@example.com',
     password: 'user123',
     role: 'user',
