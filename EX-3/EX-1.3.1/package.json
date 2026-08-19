@@ -5,16 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "node server.js",
+    "start": "vite",
     "build": "vite build",
-    "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.21.2",
-    "jsonwebtoken": "^9.0.2",
-    "jwt-decode": "^4.0.0",
     "lucide-react": "^0.475.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
