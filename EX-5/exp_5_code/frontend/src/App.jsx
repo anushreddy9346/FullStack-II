@@ -77,54 +77,66 @@ function App() {
     : posts.filter(p => p.platform.toLowerCase() === filterPlatform.toLowerCase());
 
   return (
-    <div className="app-container">
-      <div className="bg-glow bg-glow-1"></div>
-      <div className="bg-glow bg-glow-2"></div>
-
+    <div className="studio-app">
       <GlobalError message={globalError} onClose={() => setGlobalError(null)} />
       
-      <header className="app-header">
-        <div className="logo-badge">⚡ EASY POST</div>
-        <h1>EasyPost Composer</h1>
-        <p className="subtitle">Craft once, publish seamlessly. Smart word limits & live multi-platform preview.</p>
-        
-        <div className="stats-bar">
-          <div className="stat-card">
-            <span className="stat-value">{posts.length}</span>
-            <span className="stat-label">Total Drafts</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-value">{totalWords}</span>
-            <span className="stat-label">Total Words</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-value">{uniquePlatformsCount}</span>
-            <span className="stat-label">Active Channels</span>
+      {/* Top Navbar */}
+      <header className="navbar">
+        <div className="nav-brand">
+          <div className="brand-logo">⚡</div>
+          <div className="brand-text">
+            <span className="brand-name">EasyPost Studio</span>
+            <span className="brand-sub">Multi-Platform Content Manager</span>
           </div>
         </div>
-      </header>
-      
-      <main className="app-main">
-        <PostComposer 
-          onPostCreate={handleCreatePost} 
-          onError={setGlobalError} 
-        />
-        <PostList 
-          posts={filteredPosts} 
-          totalCount={posts.length}
-          currentFilter={filterPlatform}
-          onFilterChange={setFilterPlatform}
-          onDelete={handleDeletePost} 
-          onUpdate={handleUpdatePost} 
-        />
-      </main>
 
-      <footer className="app-footer">
-        <p>EasyPost Composer &bull; Powered by React & Spring Boot</p>
-      </footer>
+        <div className="nav-stats">
+          <div className="nav-stat-item">
+            <span className="stat-num">{posts.length}</span>
+            <span className="stat-lbl">Posts</span>
+          </div>
+          <div className="nav-stat-divider"></div>
+          <div className="nav-stat-item">
+            <span className="stat-num">{totalWords}</span>
+            <span className="stat-lbl">Words</span>
+          </div>
+          <div className="nav-stat-divider"></div>
+          <div className="nav-stat-item">
+            <span className="stat-num">{uniquePlatformsCount}</span>
+            <span className="stat-lbl">Channels</span>
+          </div>
+        </div>
+
+        <div className="server-status-pill">
+          <span className="status-dot"></span>
+          <span>Spring Boot Active</span>
+        </div>
+      </header>
+
+      {/* Dual-Pane Studio Main Layout */}
+      <div className="studio-layout">
+        <aside className="left-pane">
+          <PostComposer 
+            onPostCreate={handleCreatePost} 
+            onError={setGlobalError} 
+          />
+        </aside>
+
+        <section className="right-pane">
+          <PostList 
+            posts={filteredPosts} 
+            totalCount={posts.length}
+            currentFilter={filterPlatform}
+            onFilterChange={setFilterPlatform}
+            onDelete={handleDeletePost} 
+            onUpdate={handleUpdatePost} 
+          />
+        </section>
+      </div>
     </div>
   )
 }
 
 export default App;
+
 

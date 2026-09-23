@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 
 const PLATFORM_CONFIG = {
-  Twitter: { icon: '𝕏', class: 'twitter' },
-  Instagram: { icon: '📸', class: 'instagram' },
-  Facebook: { icon: '📘', class: 'facebook' },
-  LinkedIn: { icon: '💼', class: 'linkedin' }
+  Twitter: { icon: '𝕏', class: 'twitter', color: '#38bdf8' },
+  Instagram: { icon: '📸', class: 'instagram', color: '#f43f5e' },
+  Facebook: { icon: '📘', class: 'facebook', color: '#3b82f6' },
+  LinkedIn: { icon: '💼', class: 'linkedin', color: '#0284c7' }
 };
 
 const PostList = ({ posts, totalCount, currentFilter, onFilterChange, onDelete, onUpdate }) => {
@@ -39,18 +39,20 @@ const PostList = ({ posts, totalCount, currentFilter, onFilterChange, onDelete, 
   const filters = ['All', 'Twitter', 'Instagram', 'Facebook', 'LinkedIn'];
 
   return (
-    <div className="post-list-container">
-      <div className="post-list-header">
-        <div className="list-title">
-          <h2>Published Posts & Drafts</h2>
-          <span className="post-count-badge">{posts.length} {posts.length === 1 ? 'item' : 'items'}</span>
+    <div className="feed-container">
+      {/* Feed Header */}
+      <div className="feed-header">
+        <div className="feed-title">
+          <h3>Published Content Feed</h3>
+          <span className="count-tag">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</span>
         </div>
 
-        <div className="filter-chips">
+        {/* Filter Pills */}
+        <div className="filter-pills-row">
           {filters.map((filter) => (
             <button
               key={filter}
-              className={`filter-chip ${currentFilter === filter ? 'active' : ''}`}
+              className={`feed-filter-btn ${currentFilter === filter ? 'active' : ''}`}
               onClick={() => onFilterChange(filter)}
             >
               {filter}
@@ -59,50 +61,51 @@ const PostList = ({ posts, totalCount, currentFilter, onFilterChange, onDelete, 
         </div>
       </div>
 
+      {/* Feed List / Cards */}
       {posts.length === 0 ? (
-        <div className="no-posts-card">
-          <div className="empty-icon">📮</div>
-          <h3>No posts found</h3>
-          <p>{totalCount === 0 ? "You haven't created any posts yet. Select a platform above and compose your first draft!" : `No posts matching "${currentFilter}".`}</p>
+        <div className="empty-feed-box">
+          <div className="empty-symbol">📭</div>
+          <h4>No posts found</h4>
+          <p>{totalCount === 0 ? "Your feed is empty. Draft your first post using the Content Composer on the left!" : `No posts matching channel "${currentFilter}".`}</p>
         </div>
       ) : (
-        <div className="post-grid">
-          {posts.map(post => {
-            const config = PLATFORM_CONFIG[post.platform] || { icon: '💬', class: 'generic' };
+        <div className="feed-cards-list">
+          {posts.map((post, idx) => {
+            const config = PLATFORM_CONFIG[post.platform] || { icon: '💬', class: 'generic', color: '#a855f7' };
             const wordCount = countWords(post.content);
             const isEditing = editingId === post.id;
 
             return (
-              <div key={post.id} className={`post-card platform-border-${config.class}`}>
-                <div className="post-header">
-                  <span className={`platform-badge ${config.class}`}>
-                    <span className="badge-icon">{config.icon}</span>
-                    <span className="badge-name">{post.platform}</span>
-                  </span>
+              <div key={post.id} className="feed-card" style={{ '--card-accent': config.color }}>
+                <div className="feed-card-header">
+                  <div className="platform-tag" style={{ background: `${config.color}22`, color: config.color, borderColor: `${config.color}44` }}>
+                    <span className="tag-icon">{config.icon}</span>
+                    <span className="tag-text">{post.platform}</span>
+                  </div>
 
-                  <div className="post-actions">
+                  <div className="card-actions-group">
                     {isEditing ? (
                       <>
-                        <button className="action-btn save" onClick={() => handleSaveClick(post.id, post.platform)}>
+                        <button className="btn-sm save" onClick={() => handleSaveClick(post.id, post.platform)}>
                           ✓ Save
                         </button>
-                        <button className="action-btn cancel" onClick={handleCancelClick}>
+                        <button className="btn-sm cancel" onClick={handleCancelClick}>
                           ✕ Cancel
                         </button>
                       </>
                     ) : (
                       <>
                         <button 
-                          className="action-btn copy" 
+                          className="btn-sm copy" 
                           onClick={() => handleCopyClick(post.id, post.content)}
-                          title="Copy to clipboard"
+                          title="Copy text"
                         >
                           {copiedId === post.id ? '✓ Copied' : '📋 Copy'}
                         </button>
-                        <button className="action-btn edit" onClick={() => handleEditClick(post)} title="Edit post">
+                        <button className="btn-sm edit" onClick={() => handleEditClick(post)} title="Edit">
                           ✏️ Edit
                         </button>
-                        <button className="action-btn delete" onClick={() => onDelete(post.id)} title="Delete post">
+                        <button className="btn-sm delete" onClick={() => onDelete(post.id)} title="Delete">
                           🗑️
                         </button>
                       </>
@@ -110,23 +113,24 @@ const PostList = ({ posts, totalCount, currentFilter, onFilterChange, onDelete, 
                   </div>
                 </div>
 
-                <div className="post-body">
+                <div className="feed-card-body">
                   {isEditing ? (
                     <textarea 
                       value={editContent}
                       onChange={(e) => setEditContent(e.target.value)}
                       rows="4"
-                      className="edit-textarea"
+                      className="studio-edit-input"
                     />
                   ) : (
-                    <p className="post-content-text">{post.content}</p>
+                    <p className="feed-text">{post.content}</p>
                   )}
                 </div>
 
-                <div className="post-card-footer">
-                  <span className="meta-info">
-                    {wordCount} words &bull; {post.content.length} chars
+                <div className="feed-card-footer">
+                  <span className="card-stat">
+                    {wordCount} words &bull; {post.content.length} characters
                   </span>
+                  <span className="card-id">ID #{post.id}</span>
                 </div>
               </div>
             );
@@ -138,4 +142,5 @@ const PostList = ({ posts, totalCount, currentFilter, onFilterChange, onDelete, 
 };
 
 export default PostList;
+
 
