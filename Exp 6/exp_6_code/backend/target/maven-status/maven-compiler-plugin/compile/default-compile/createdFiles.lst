@@ -1,0 +1,5 @@
+com\example\backend\entity\Task.class
+com\example\backend\repository\TaskRepository.class
+com\example\backend\entity\Comment.class
+com\example\backend\service\TaskService.class
+com\example\backend\StudentTaskManagerApplication.class
